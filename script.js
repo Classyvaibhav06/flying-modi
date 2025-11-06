@@ -29,7 +29,8 @@ let bottompipeimg;
 // physics
 let velocityX = -2;
 let velocitY = 0;
-let gravity = 0.4;
+let gravity = window.innerWidth < 800 ? 0.1 : 0.4; // slower gravity for phones
+
 
 let gameover = false;
 let score = 0;
@@ -38,9 +39,9 @@ let hitImageToShow = null; // store which hit image to show
 // 🎵 sounds
 let bgMusic = new Audio("./media/cid-le-mdc.mp3");
 let hitTopSound = new Audio("./media/tmp8ljn9e7h.mp3");
-let hitBottomSound = new Audio("./media/romanceeeeeeeeeeeeee.mp3");
-let passSound = new Audio("./media/1-108.mp3");
-let jump = new Audio("./media/yooooooooooooooooooooooooo_4_objp8XX.mp3")
+let hitBottomSound = new Audio("./media/aisa-mat-karo.mp3");
+let passSound = new Audio("./media/cid-acp-behn-choo.mp3");
+let jump = new Audio("./media/1-108.mp3")
 
 // 🖼️ hit images
 let hitTopImg = new Image();
@@ -70,7 +71,7 @@ window.onload = function () {
 
   document.addEventListener("keydown", movebird);
   document.addEventListener("mousedown", (e) => {
-    if (e.button === 0) velocitY = -6;
+    if (e.button === 0) velocitY = -2.7;
     jump.play()
   });
 
