@@ -94,6 +94,9 @@ function update() {
   if (gameover) {
     // Draw final state
     for (let pipe of pipearray) {
+      context.fillStyle = "green";
+      context.font = "25px sans-serif";
+      context.fillText(`score :${score}`, 5, 45);
       context.drawImage(pipe.img, pipe.x, pipe.y, pipe.width, pipe.height);
     }
     context.drawImage(modi_img, bird.x, bird.y, bird.width, bird.height);
@@ -157,8 +160,8 @@ function update() {
 
   // score
   context.fillStyle = "green";
-  context.font = "45px sans-serif";
-  context.fillText(score, 5, 45);
+  context.font = "25px sans-serif";
+  context.fillText(`score :${score}`, 5, 45);
 }
 
 function placepipes() {
