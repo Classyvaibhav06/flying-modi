@@ -27,7 +27,7 @@ let toppipeimg;
 let bottompipeimg;
 
 // physics
-let velocityX = -4;
+let velocityX = -2;
 let velocitY = 0;
 let gravity = window.innerWidth < 800 ? 0.1 : 0.4; // slower gravity for phones
 
@@ -45,6 +45,8 @@ let passSound = new Audio("./media/cid-acp-behn-choo.mp3");
 let jump = new Audio("./media/1-108.mp3")
 
 // 🖼️ hit images
+let scoreicon = new Image();
+scoreicon.src = "./media/score.png"
 let hitTopImg = new Image();
 let hitBottomImg = new Image();
 hitTopImg.src = "./media/tata.jpg";
@@ -109,7 +111,7 @@ function update() {
 
     // show restart text
     context.fillStyle = "red";
-    context.font = "30px sans-serif";
+    context.font = "25px Arial, Helvetica, sans-serif";
     context.fillText("GAME OVER", 80, 200);
     context.fillText(`highscore :${highscore}`, 80, 150);
     document.getElementById("restartBtn").style.display = "block";
