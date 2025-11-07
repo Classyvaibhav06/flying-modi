@@ -27,27 +27,28 @@ let toppipeimg;
 let bottompipeimg;
 
 // physics
-let velocityX = -2;
+let velocityX = -4;
 let velocitY = 0;
 let gravity = window.innerWidth < 800 ? 0.1 : 0.4; // slower gravity for phones
 
 
 let gameover = false;
 let score = 0;
+let highscore=0;
 let hitImageToShow = null; // store which hit image to show
 
 // 🎵 sounds
 let bgMusic = new Audio("./media/cid-le-mdc.mp3");
 let hitTopSound = new Audio("./media/tmp8ljn9e7h.mp3");
-let hitBottomSound = new Audio("./media/aisa-mat-karo.mp3");
+let hitBottomSound = new Audio("./media/mamta.mp3");
 let passSound = new Audio("./media/cid-acp-behn-choo.mp3");
 let jump = new Audio("./media/1-108.mp3")
 
 // 🖼️ hit images
 let hitTopImg = new Image();
 let hitBottomImg = new Image();
-hitTopImg.src = "https://www.bing.com/th/id/OIP.Lk2PrHQYOtQtINk4K0S-XwHaE7?w=272&h=211&c=8&rs=1&qlt=90&o=6&dpr=1.3&pid=3.1&rm=2";
-hitBottomImg.src = "https://www.bing.com/th/id/OIP.TbbkyGJA7485CAVt18KkQQHaE8?w=243&h=211&c=8&rs=1&qlt=90&o=6&dpr=1.3&pid=3.1&rm=2";
+hitTopImg.src = "./media/tata.jpg";
+hitBottomImg.src = "./media/hamba.avif";
 
 window.onload = function () {
   board = document.getElementById("board");
@@ -92,11 +93,11 @@ function update() {
   context.clearRect(0, 0, board.width, board.height);
 
   if (gameover) {
+    
     // Draw final state
     for (let pipe of pipearray) {
       context.fillStyle = "green";
-      context.font = "25px sans-serif";
-      context.fillText(`score :${score}`, 5, 45);
+      context.fillText(`score :${score} `, 5, 45);
       context.drawImage(pipe.img, pipe.x, pipe.y, pipe.width, pipe.height);
     }
     context.drawImage(modi_img, bird.x, bird.y, bird.width, bird.height);
@@ -110,6 +111,7 @@ function update() {
     context.fillStyle = "red";
     context.font = "30px sans-serif";
     context.fillText("GAME OVER", 80, 200);
+    context.fillText(`highscore :${highscore}`, 80, 150);
     document.getElementById("restartBtn").style.display = "block";
     return;
   }
@@ -126,12 +128,16 @@ function update() {
 
     if (!pipe.passed && bird.x > pipe.x + pipe.width) {
       score += 0.5;
+      if(highscore<score){
+        highscore = score;
+      }
       passSound.play();
       pipe.passed = true;
     }
 
     if (detectcollision(bird, pipe)) {
       gameover = true;
+      passSound.pause()
       bgMusic.pause();
       bgMusic.currentTime = 0;
 
@@ -161,7 +167,7 @@ function update() {
   // score
   context.fillStyle = "green";
   context.font = "25px sans-serif";
-  context.fillText(`score :${score}`, 5, 45);
+  context.fillText(`score :${score} `, 5, 45);
 }
 
 function placepipes() {
@@ -216,4 +222,8 @@ function restartGame() {
   document.getElementById("restartBtn").style.display = "none";
   bgMusic.currentTime = 0;
   bgMusic.play();
+   hitTopSound.pause();
+  hitBottomSound.pause();
+  hitTopSound.currentTime = 0;
+  hitBottomSound.currentTime = 0;
 }
